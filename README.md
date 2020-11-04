@@ -1,2 +1,2 @@
-# wibudev-bot
+# Elina
 Bot Discord
