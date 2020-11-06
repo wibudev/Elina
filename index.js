@@ -1,55 +1,32 @@
-require('dotenv').config();
 const Discord = require("discord.js");
 const client = new Discord.Client();
-
 const alive = require("./alive.js")
-
 const { GiveawaysManager } = require("discord-giveaways");
 const db = require("quick.db");
 if(!db.get("giveaways")) db.set("giveaways", []);
-
 const GiveawayManagerWithOwnDatabase = class extends GiveawaysManager {
-
-    // This function is called when the manager needs to get all the giveaway stored in the database.
     async getAllGiveaways(){
-        // Get all the giveaway in the database
         return db.get("giveaways");
     }
-
-    // This function is called when a giveaway needs to be saved in the database (when a giveaway is created or when a giveaway is edited).
     async saveGiveaway(messageID, giveawayData){
-        // Add the new one
         db.push("giveaways", giveawayData);
-        // Don't forget to return something!
         return true;
     }
 
     async editGiveaway(messageID, giveawayData){
-        // Gets all the current giveaways
         const giveaways = db.get("giveaways");
-        // Remove the old giveaway from the current giveaways ID
         const newGiveawaysArray = giveaways.filter((giveaway) => giveaway.messageID !== messageID);
-        // Push the new giveaway to the array
         newGiveawaysArray.push(giveawayData);
-        // Save the updated array
         db.set("giveaways", newGiveawaysArray);
-        // Don't forget to return something!
         return true;
     }
 
-    // This function is called when a giveaway needs to be deleted from the database.
     async deleteGiveaway(messageID){
-        // Remove the giveaway from the array
         const newGiveawaysArray = db.get("giveaways").filter((giveaway) => giveaway.messageID !== messageID);
-        // Save the updated array
         db.set("giveaways", newGiveawaysArray);
-        // Don't forget to return something!
         return true;
     }
-
 };
-
-// Create a new instance of your new class
 const manager = new GiveawayManagerWithOwnDatabase(client, {
     storage: false,
     updateCountdownEvery: 5000,
@@ -61,23 +38,40 @@ const manager = new GiveawayManagerWithOwnDatabase(client, {
     }
 });
 client.giveawaysManager = manager;
-// We now have a client.giveawaysManager property to manage our giveaways!
-
-client.giveawaysManager.on("giveawayReactionAdded", (giveaway, member, reaction) => {
-    console.log(`${member.user.tag} entered giveaway #${giveaway.messageID} (${reaction.emoji.name})`);
-});
-
-client.giveawaysManager.on("giveawayReactionRemoved", (giveaway, member, reaction) => {
-    console.log(`${member.user.tag} unreact to giveaway #${giveaway.messageID} (${reaction.emoji.name})`);
-});
-
-
 const config = require("./config.json"),
 fs = require("fs"),
 util = require("util"),
 readdir = util.promisify(fs.readdir),
 mongoose = require("mongoose");
+const DBL = require("dblapi.js");
+const dbl = new DBL(process.env.GG_TOKEN, client);
+dbl.on('posted', () => {
+  console.log('Server count posted!');
+})
 
+dbl.on('error', e => {
+ console.log(`Oops! ${e}`);
+})
+client.on('guildCreate', guild => {
+ guild.systemChannel.send(`Hey ! Don't Forget Vote Me !`)
+})
+client.on('message', message => {
+    if (message.content === '!join') {
+        client.emit('guildMemberAdd', message.member);
+    }
+});
+
+client.on('message', message => {
+    if (message.content === '!leave') {
+        client.emit('guildMemberLeave', message.member);
+    }
+});
+
+client.on('message', message => {
+    if (message.content === '!nitro') {
+        client.emit('GuildMember.premiumSinceTimestamp', message.member);
+    }
+});
 
 client.logger = require("./modules/Logger.js");
 client.errors = require("./modules/Embeds.js");
@@ -116,4 +110,4 @@ folders.forEach(direct =>{
 }
 
 init();
-client.login(process.env.TOKEN)
+client.login(process.env.TOKEN);
