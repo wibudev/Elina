@@ -1,6 +1,6 @@
 const Discord = require("discord.js");
 const client = new Discord.Client();
-const alive = require("./alive.js")
+const alive = require("./events/alive.js")
 const { GiveawaysManager } = require("discord-giveaways");
 const db = require("quick.db");
 if(!db.get("giveaways")) db.set("giveaways", []);
@@ -73,7 +73,7 @@ client.on('message', message => {
     }
 });
 
-client.logger = require("./modules/Logger.js");
+client.logger = require("./modules/Log.js");
 client.errors = require("./modules/Embeds.js");
 client.tools = require("./modules/Tools.js");
 client.data = require("./modules/MongoDB.js");
