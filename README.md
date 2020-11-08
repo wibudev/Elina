@@ -1,2 +1,4 @@
 # Elina
-Bot Discord
+Bot Discord for Development
+
+
