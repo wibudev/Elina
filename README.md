@@ -6,4 +6,5 @@ Bot Discord for Development
 - run `npm i elina`
 - run node `index.js`
 
-
+### Contribution
+of course anyone can, if interested can pull and explain along with a description
