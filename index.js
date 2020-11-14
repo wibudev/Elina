@@ -1,8 +1,6 @@
 const Discord = require("discord.js");
 const client = new Discord.Client();
 const alive = require("./events/alive.js")
-
-
 const config = require("./config.json"),
 fs = require("fs"),
 util = require("util"),
