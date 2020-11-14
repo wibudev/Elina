@@ -1,43 +1,8 @@
 const Discord = require("discord.js");
 const client = new Discord.Client();
 const alive = require("./events/alive.js")
-const { GiveawaysManager } = require("discord-giveaways");
-const db = require("quick.db");
-if(!db.get("giveaways")) db.set("giveaways", []);
-const GiveawayManagerWithOwnDatabase = class extends GiveawaysManager {
-    async getAllGiveaways(){
-        return db.get("giveaways");
-    }
-    async saveGiveaway(messageID, giveawayData){
-        db.push("giveaways", giveawayData);
-        return true;
-    }
 
-    async editGiveaway(messageID, giveawayData){
-        const giveaways = db.get("giveaways");
-        const newGiveawaysArray = giveaways.filter((giveaway) => giveaway.messageID !== messageID);
-        newGiveawaysArray.push(giveawayData);
-        db.set("giveaways", newGiveawaysArray);
-        return true;
-    }
 
-    async deleteGiveaway(messageID){
-        const newGiveawaysArray = db.get("giveaways").filter((giveaway) => giveaway.messageID !== messageID);
-        db.set("giveaways", newGiveawaysArray);
-        return true;
-    }
-};
-const manager = new GiveawayManagerWithOwnDatabase(client, {
-    storage: false,
-    updateCountdownEvery: 5000,
-    default: {
-        botsCanWin: false,
-        exemptPermissions: [ "MANAGE_MESSAGES", "ADMINISTRATOR" ],
-        embedColor: "#FF0000",
-        reaction: "ðŸŽ‰"
-    }
-});
-client.giveawaysManager = manager;
 const config = require("./config.json"),
 fs = require("fs"),
 util = require("util"),
