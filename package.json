@@ -29,7 +29,7 @@
   "dependencies": {
     "@discordjs/node-pre-gyp": "^0.1.0",
     "@discordjs/opus": "^0.3.2",
-    "apexlegendsjs": "^1.2.1",
+    "apexlegendsjs": "^2.0.0",
     "axios": "^0.19.2",
     "chalk": "^4.1.0",
     "cheerio": "^1.0.0-rc.3",
