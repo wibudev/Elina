@@ -57,7 +57,7 @@
     "prism-media": "^1.2.2",
     "random-puppy": "^1.1.0",
     "simple-youtube-api": "^5.2.1",
-    "valorant": "0.0.1",
+    "valorant": "0.0.3",
     "weather-js": "^2.0.0",
     "ytdl-core": "^4.1.4"
   },
