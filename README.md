@@ -6,6 +6,7 @@ Bot Discord for Development
 - run `npm i elina`
 - run node `index.js`
 ### How to Bot Online 24/7
+- deploy on heroku,repl.it,glitch
 - You can use uptime robot
 - or you can also use the google app script to monitor the bot project.
 ### Contribution
