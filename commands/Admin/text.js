@@ -9,7 +9,7 @@ module.exports = {
     guildOnly: true,
     aliases: [],
     memberPermissions: [],
-    botPermissions: [],
+    botPermissions: ["MANAGE_CHANNELS"],
     nsfw: false,
     cooldown: 5000,
     ownerOnly: false,
