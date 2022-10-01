@@ -20,7 +20,7 @@ module.exports = {
           .then(url => {
               let embed = new Discord.MessageEmbed()
               .setImage(url)
-              .setTitle("Random Meme Generator")
+              .setTitle("Get A Random Meme")
               .setURL("https://www.reddit.com/r/memes")
               .setColor(data.config.color)
               .setTimestamp()

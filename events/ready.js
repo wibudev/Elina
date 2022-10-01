@@ -2,7 +2,7 @@ module.exports = async (client) => {
 const activity_list = 
 [ 
   [`JavaScript`, "PLAYING", "idle"],
-  ["bacotan-wibu.com", "LISTENING","idle"],
+  ["Hello World", "LISTENING","idle"],
 	
   ["Attack on Titan", "WATCHING","idle"]
   ];
